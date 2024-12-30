@@ -1,0 +1,1 @@
+'any' should only be used as a TEMPORARY measure when transitioning from javascript to typescript.

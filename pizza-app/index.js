@@ -11,7 +11,7 @@ let nextOrderId = 1;
 
 /*
 
-    Callenge: 
+    Challenge: 
     Add an utility function "addNewPizza" that takes a pizza object and adds it to the menu
 
 */
