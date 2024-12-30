@@ -1,14 +1,14 @@
 type Pizza = {
-  name: string
-  price: number
-  discount?: boolean // optional value
+  name: string;
+  price: number;
+  discount?: boolean; // optional value
 };
 
 type Order = {
-  id: number
-  pizza: Pizza
-  status: "ordered" | "completed" // binary value
-}
+  id: number;
+  pizza: Pizza;
+  status: "ordered" | "completed"; // binary value
+};
 
 const menu: Pizza[] = [
   { name: "Muzzarella", price: 8, discount: false },
@@ -18,17 +18,17 @@ const menu: Pizza[] = [
 ];
 
 let cashInRegister: number = 100;
-const orderQueue Order[] = [];
+const orderHistory: Order[] = [];
 let nextOrderId: number = 1;
 
 function addNewPizza(pizzaObj: Pizza) {
   menu.push(pizzaObj);
 }
 
-function placeOrder(pizzaName: string): Order | void { // return types
+function placeOrder(pizzaName: string): Order | void /* return types */ {
   const selectedPizza = menu.find((pizzaObj) => pizzaObj.name === pizzaName);
   if (selectedPizza === undefined) {
-    console.error(`${pizzaName} does not exist in the menu`);
+    console.error(`The pizza '${pizzaName}' does not exist in the menu`);
     return;
   }
   cashInRegister += selectedPizza.price;
@@ -37,12 +37,16 @@ function placeOrder(pizzaName: string): Order | void { // return types
     pizza: selectedPizza,
     status: "ordered",
   };
-  orderQueue.push(newOrder);
+  orderHistory.push(newOrder);
   return newOrder;
 }
 
-function completeOrder(orderId: number): Order | void { // return types
-  const order = orderQueue.find((order) => order.id === orderId);
+function completeOrder(orderId: number): Order | void /* return types */ {
+  const order = orderHistory.find((order) => order.id === orderId);
+  if (order === undefined) {
+    console.error(`Order #${orderId} was not found in the order history`);
+    return;
+  }
   order.status = "completed";
   return order;
 }
@@ -54,4 +58,4 @@ completeOrder(1);
 
 console.log("Menu: ", menu);
 console.log("Cash in register: ", cashInRegister);
-console.log("Order queue: ", orderQueue);
+console.log("Order history: ", orderHistory);
