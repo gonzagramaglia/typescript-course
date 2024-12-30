@@ -56,6 +56,32 @@ function placeOrder(pizzaName: string): Order | undefined /* return types */ {
   return newOrder;
 }
 
+/*
+
+    Challenge: 
+    Add types to our generic `addToArray` function. It should work for adding new pizzas to the `menu` and adding new orders to the `orderHistory`
+
+*/
+
+function addToArray<Type>(array: Type[], item: Type): Type[] {
+  array.push(item);
+  return array;
+}
+
+//example usage:
+console.log(
+  "Adding an item into the menu array: ",
+  addToArray(menu, { id: nextPizzaId++, name: "Anchoas", price: 12 })
+);
+console.log(
+  "Adding an item into the orderHistory array: ",
+  addToArray<Order>(orderHistory, {
+    id: nextOrderId++,
+    pizza: menu[menu.length - 1],
+    status: "completed",
+  })
+);
+
 function completeOrder(orderId: number): Order | undefined /* return types */ {
   const order = orderHistory.find((order) => order.id === orderId);
   if (order === undefined) {
