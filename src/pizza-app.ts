@@ -11,18 +11,31 @@ type Order = {
   status: "ordered" | "completed"; // binary value
 };
 
-const menu: Pizza[] = [
-  { id: 1, name: "Muzzarella", price: 8, discount: false },
-  { id: 2, name: "Jamon y Queso", price: 10 },
-  { id: 3, name: "Especial con Huevo", price: 10, discount: true },
-  { id: 4, name: "Fugazzeta", price: 9 },
-];
-
 let cashInRegister: number = 100;
 const orderHistory: Order[] = [];
 let nextOrderId: number = 1;
+let nextPizzaId: number = 1;
 
-function addNewPizza(pizzaObj: Pizza): void {
+const menu: Pizza[] = [
+  { id: nextPizzaId++, name: "Muzzarella", price: 8, discount: false },
+  { id: nextPizzaId++, name: "Jamon y Queso", price: 10 },
+  { id: nextPizzaId++, name: "Especial con Huevo", price: 10, discount: true },
+  { id: nextPizzaId++, name: "Fugazzeta", price: 9 },
+];
+
+/*
+
+    Challenge: 
+    Move the logic for adding an ID to the pizza objects inside the addNewPizza dunction, so that we can call addNewPizza with no id, and the function will handle that part for us.
+
+*/
+
+function addNewPizza(name: string, price: number): void {
+  const pizzaObj: Pizza = {
+    id: nextPizzaId++,
+    name,
+    price,
+  };
   menu.push(pizzaObj);
 }
 
@@ -52,7 +65,7 @@ function completeOrder(orderId: number): Order | undefined /* return types */ {
   return order;
 }
 
-addNewPizza({ id: 4, name: "Anana", price: 11 });
+addNewPizza("Anana", 11);
 placeOrder("Anana");
 placeOrder("Muzzarella");
 completeOrder(1);
